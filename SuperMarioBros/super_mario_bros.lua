@@ -9,6 +9,7 @@ local readMemory = require("read_memory");
 local writeJoypad = require("write_joypad");
 local server = require("server");
 local json = require("cjson");
+local gd = require("gd");
 
 -- Locally stored save state.
 saveState = 0
@@ -24,6 +25,9 @@ currentKey = ""
 
 -- Locally stored frame divisor.
 frameDivisor = 30
+
+-- Locally stored image quality parameter.
+imageQuality = 50
 
 -- Skip the start screen and create a savestate.
 function StartGame()
@@ -96,6 +100,14 @@ function FunctionHandler(data)
         savestate.load(saveState)
       end
 
+      if (values["game"]["value"] == "Image") then
+        local gdStr = gui.gdscreenshot();
+        local gdImg = gd.createFromGdStr(gdStr);
+        local image = gdImg:jpegStr(imageQuality)
+
+        server.Send(image)
+      end
+
       if (values["game"]["value"] == "Tiles") then
 
         local mario = readMemory.MarioPostion();
@@ -120,6 +132,8 @@ function FunctionHandler(data)
     if (values["config"] ~= nil) then
       if (values["config"]["frame"] ~= nil) then
         frameCounter = values["config"]["frame"]
+      elseif (values["config"]["image"] ~= nil) then
+        imageQuality = values["config"]["image"]
       else
         print("Unknown config value: " + values["config"])
       end
