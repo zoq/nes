@@ -3,6 +3,11 @@
  @author Marcus Edel
 
  Definition of memory routines.
+
+ For more information, see the following page:
+
+ http://datacrystal.romhacking.net/wiki/Super_Mario_Bros.:RAM_map
+
  --]]
 
 local S = {};
