@@ -10,6 +10,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include <iostream>
 #include <string>
 
 #include "parser.hpp"
@@ -30,6 +31,7 @@ int main(int argc, char* argv[])
 
     parser::Parser parser;
     std::string command;
+    arma::mat tiles;
     for(;;)
     {
       std::string json;
@@ -103,7 +105,12 @@ int main(int argc, char* argv[])
       client.Send(messages::JSONMessage(json));
       client.Receive(json);
 
-      Log::Info << json << std::endl;
+      std::cout << json << std::endl;
+
+      parser.Parse(json);
+      parser.Tiles(tiles);
+
+      std::cout << tiles << std::endl;
     }
 
     return 0;
