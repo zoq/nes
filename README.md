@@ -22,6 +22,7 @@ fceux
 lua-cjson
 luasocket
 lua-gd
+Super Mario Bros. (Japan, USA).nes
 ```
 
 ## Building the communication module from source
