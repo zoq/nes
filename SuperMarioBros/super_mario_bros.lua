@@ -27,7 +27,7 @@ currentKey = ""
 frameDivisor = 30
 
 -- Locally stored image quality parameter.
-imageQuality = 50
+imageQuality = 80
 
 -- Skip the start screen and create a savestate.
 function StartGame()
@@ -145,6 +145,7 @@ end
 StartGame()
 server.Server("*", 4561, 1)
 server.Accept()
+savestate.load(saveState)
 
 while (true) do
   -- Handle the input data.
@@ -155,6 +156,7 @@ while (true) do
     else
       print("Lost connection listen.")
       server.Accept()
+      savestate.load(saveState)
     end
   end
 
