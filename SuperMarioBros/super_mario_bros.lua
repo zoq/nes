@@ -63,80 +63,83 @@ end
 -- Set the frame divisor -> "config" : frameDivisor
 function FunctionHandler(data)
   if data ~= nil and string.len(data) > 2 then
-    values = json.decode(data)
 
-    if (values ~= nil) then
+    local success, values = pcall(json.decode, data);
+    if (success) then
 
-      -- Check the key values.
-      if (values["key"] ~= nil) then
-        if (values["key"]["value"] == "A") then
-          currentKey = "A"
-          writeJoypad.PressA()
-        elseif (values["key"]["value"] == "B") then
-          currentKey = "B"
-          writeJoypad.PressB()
-        elseif (values["key"]["value"] == "Right") then
-          currentKey = "Right"
-          writeJoypad.PressRight()
-        elseif (values["key"]["value"] == "Left") then
-          currentKey = "Left"
-          writeJoypad.PressLeft()
-        elseif (values["key"]["value"] == "Up") then
-          currentKey = "Up"
-          writeJoypad.PressUp()
-        elseif (values["key"]["value"] == "Down") then
-          currentKey = "Down"
-          writeJoypad.PressDown()
-        elseif (values["key"]["value"] == "Start") then
-          currentKey = "Start"
-          writeJoypad.PressStart()
-        else
-          print("Unknown key value: " + values["key"]["value"])
-        end
-      end
+      if (values ~= nil) then
 
-      -- Check the game values.
-      if (values["game"] ~= nil) then
-        if (values["game"]["value"] == "Reset") then
-          savestate.load(saveState)
+        -- Check the key values.
+        if (values["key"] ~= nil) then
+          if (values["key"]["value"] == "A") then
+            currentKey = "A"
+            writeJoypad.PressA()
+          elseif (values["key"]["value"] == "B") then
+            currentKey = "B"
+            writeJoypad.PressB()
+          elseif (values["key"]["value"] == "Right") then
+            currentKey = "Right"
+            writeJoypad.PressRight()
+          elseif (values["key"]["value"] == "Left") then
+            currentKey = "Left"
+            writeJoypad.PressLeft()
+          elseif (values["key"]["value"] == "Up") then
+            currentKey = "Up"
+            writeJoypad.PressUp()
+          elseif (values["key"]["value"] == "Down") then
+            currentKey = "Down"
+            writeJoypad.PressDown()
+          elseif (values["key"]["value"] == "Start") then
+            currentKey = "Start"
+            writeJoypad.PressStart()
+          else
+            print("Unknown key value: " + values["key"]["value"])
+          end
         end
 
-        if (values["game"]["value"] == "Image") then
-          local gdStr = gui.gdscreenshot();
-          local gdImg = gd.createFromGdStr(gdStr);
-          local image = gdImg:jpegStr(imageQuality)
+        -- Check the game values.
+        if (values["game"] ~= nil) then
+          if (values["game"]["value"] == "Reset") then
+            savestate.load(saveState)
+          end
 
-          server.Send(image)
+          if (values["game"]["value"] == "Image") then
+            local gdStr = gui.gdscreenshot();
+            local gdImg = gd.createFromGdStr(gdStr);
+            local image = gdImg:jpegStr(imageQuality)
+
+            server.Send(image)
+          end
+
+          if (values["game"]["value"] == "Tiles") then
+
+            local mario = readMemory.MarioPostion();
+            local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
+
+            server.Send(json.encode({tiles = tiles}))
+          end
+
+          if (values["game"]["value"] == "Info") then
+            
+            local mario = readMemory.MarioPostion();
+            local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
+            local lives = readMemory.MarioLives();
+            local coins = readMemory.MarioCoins();
+
+            server.Send(json.encode({mario = mario, tiles = tiles, lives = lives,
+                coins = coins}))
+          end
         end
 
-        if (values["game"]["value"] == "Tiles") then
-
-          local mario = readMemory.MarioPostion();
-          local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
-
-          server.Send(json.encode({tiles = tiles}))
-        end
-
-        if (values["game"]["value"] == "Info") then
-          
-          local mario = readMemory.MarioPostion();
-          local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
-          local lives = readMemory.MarioLives();
-          local coins = readMemory.MarioCoins();
-
-          server.Send(json.encode({mario = mario, tiles = tiles, lives = lives,
-              coins = coins}))
-        end
-      end
-
-       -- Check the config values.
-      if (values["config"] ~= nil) then
-        if (values["config"]["frame"] ~= nil) then
-          frameCounter = values["config"]["frame"]
-        elseif (values["config"]["image"] ~= nil) then
-          imageQuality = values["config"]["image"]
-        else
-          print("Unknown config value: " + values["config"])
+         -- Check the config values.
+        if (values["config"] ~= nil) then
+          if (values["config"]["frame"] ~= nil) then
+            frameCounter = values["config"]["frame"]
+          elseif (values["config"]["image"] ~= nil) then
+            imageQuality = values["config"]["image"]
+          else
+            print("Unknown config value: " + values["config"])
+          end
         end
       end
     end
