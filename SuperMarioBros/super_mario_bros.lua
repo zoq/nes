@@ -9,7 +9,9 @@ local readMemory = require("read_memory");
 local writeJoypad = require("write_joypad");
 local server = require("server");
 local json = require("cjson");
-local gd = require("gd");
+
+-- Check for the gd module.
+local hasgd, gd = pcall(require,"gd")
 
 -- Locally stored save state.
 saveState = 0
@@ -103,7 +105,7 @@ function FunctionHandler(data)
             savestate.load(saveState)
           end
 
-          if (values["game"]["value"] == "Image") then
+          if (values["game"]["value"] == "Image" and hasgd) then
             local gdStr = gui.gdscreenshot();
             local gdImg = gd.createFromGdStr(gdStr);
             local image = gdImg:jpegStr(imageQuality)
