@@ -79,7 +79,7 @@ The following contains some example outputs of the game state and the correspond
 {"tiles":{"1":[0,0,0,0,0,0,3,0,0,0,0,0,0],"2":[0,0,1,1,1,1,1,1,1,1,1,1,1],"3":[0,0,1,1,1,1,1,1,1,1,1,1,1],"4":[0,0,0,0,0,0,0,0,0,0,0,0,0],"5":[0,0,0,0,0,0,0,0,0,0,0,0,0],"6":[0,0,0,0,0,0,0,0,0,0,0,0,0],"0":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-5":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-6":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-2":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-3":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-1":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-4":[0,0,0,0,0,0,0,0,0,0,0,0,0]},"lives":2,"mario":{"y":192,"x":57},"coins":0}
 ```
 
-<p align="center"><img src="https://urgs.org/marcus/media/mario_example_1.png" alt="Mario game state 1" width="400"/></p>
+<p align="center"><img src="https://kurg.org/media/mario_example_1.png" alt="Mario game state 1" width="400"/></p>
 
 ```
                            0   0   0   0   0   0   0   0   0   0   0   0   0
@@ -103,7 +103,7 @@ The following contains some example outputs of the game state and the correspond
 {"tiles":{"1":[0,0,2,0,0,0,3,0,0,0,0,0,0],"2":[1,1,1,1,1,1,1,1,1,1,1,1,1],"3":[1,1,1,1,1,1,1,1,1,1,1,1,1],"4":[0,0,0,0,0,0,0,0,1,1,0,0,0],"5":[0,0,0,0,0,0,0,0,0,0,0,0,0],"6":[0,0,0,0,0,0,0,0,0,0,0,0,0],"0":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-5":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-6":[0,0,0,0,0,0,0,0,0,0,0,0,1],"-2":[0,0,0,0,0,0,1,0,0,0,1,1,1],"-3":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-1":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-4":[0,0,0,0,0,0,0,0,0,0,0,0,0]},"lives":2,"mario":{"y":192,"x":248},"coins":1}
 ```
 
-<p align="center"><img src="https://urgs.org/marcus/media/mario_example_2.png" alt="Mario game state 1" width="400"/></p>
+<p align="center"><img src="https://kurg.org/media/mario_example_2.png" alt="Mario game state 1" width="400"/></p>
 
 
 ```
@@ -128,7 +128,7 @@ The following contains some example outputs of the game state and the correspond
 {"tiles":{"1":[0,0,0,0,0,0,3,1,1,0,0,0,0],"2":[1,1,1,1,1,1,1,1,1,1,1,1,1],"3":[1,1,1,1,1,1,1,1,1,1,1,1,1],"4":[0,0,0,0,0,0,1,1,1,0,0,0,0],"5":[0,0,1,0,0,0,0,0,0,0,0,0,0],"6":[0,0,0,0,1,0,0,0,0,0,0,0,0],"0":[0,0,0,0,0,0,0,1,1,0,0,0,0],"-5":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-6":[0,1,0,0,0,0,0,0,0,0,0,0,0],"-2":[1,1,1,1,0,0,0,0,0,0,0,0,0],"-3":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-1":[0,0,0,0,0,0,0,0,0,0,0,0,0],"-4":[0,0,0,0,0,0,0,0,0,0,0,0,0]},"lives":2,"mario":{"y":192,"x":434},"coins":1}
 ```
 
-<p align="center"><img src="https://urgs.org/marcus/media/mario_example_3.png" alt="Mario game state 1" width="400"/></p>
+<p align="center"><img src="https://kurg.org/media/mario_example_3.png" alt="Mario game state 1" width="400"/></p>
 
 ```
                            0   1   0   0   0   0   0   0   0   0   0   0   0
