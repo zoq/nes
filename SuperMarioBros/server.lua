@@ -24,8 +24,8 @@ client = 0
 -- @backlog The number of client connections that can be queued waiting for service.
 function Server(host, port, backlog)
   tcp_server, err = socket.tcp();
-  if tcp_server==nil then 
-    return nil, err; 
+  if tcp_server==nil then
+    return nil, err;
   end
 
   tcp_server:setoption("reuseaddr", true);

@@ -122,7 +122,7 @@ function FunctionHandler(data)
           end
 
           if (values["game"]["value"] == "Info") then
-            
+
             local mario = readMemory.MarioPostion();
             local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
             local lives = readMemory.MarioLives();
@@ -184,6 +184,6 @@ while (true) do
     end
   end
 
-  frameCounter = frameCounter + 1  
+  frameCounter = frameCounter + 1
   emu.frameadvance()
 end

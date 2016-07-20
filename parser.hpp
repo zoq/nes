@@ -7,7 +7,7 @@
 #include <mlpack/core.hpp>
 
 #include <iostream>
-#include <string>  
+#include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
@@ -31,7 +31,7 @@ class Parser {
    */
   Parser(const std::string& data)
   {
-    Parse(data);    
+    Parse(data);
   }
 
   /**
@@ -62,7 +62,7 @@ class Parser {
    * Parse the tiles data and return in matrix form.
    *
    * @param tiles The tiles as matrix.
-   */  
+   */
   void Tiles(arma::mat& tiles)
   {
     int radius = 0;
@@ -104,7 +104,7 @@ class Parser {
       {
         index = radius;
       }
-      
+
       Vec(it->second, it->second.get_value<std::string>(), tiles, index);
     }
   }

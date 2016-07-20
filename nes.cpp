@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
         cv::Mat data_mat(vectordata, true);
         cv::Mat image(cv::imdecode(data_mat, 1));
 
-        imshow("image", image);        
+        imshow("image", image);
         if(cv::waitKey(1) >= 0) break;
 
         continue;
@@ -120,5 +120,5 @@ int main(int argc, char* argv[])
     Log::Fatal << "No host and port specified. Please provide the hostname and"
                << " the port." << std::endl;
     return 1;
-  }  
+  }
 }
