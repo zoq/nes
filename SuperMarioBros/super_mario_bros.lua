@@ -127,9 +127,13 @@ function FunctionHandler(data)
             local tiles = readMemory.ReadTiles(mario['x'], mario['y']);
             local lives = readMemory.MarioLives();
             local coins = readMemory.MarioCoins();
+            local state = readMemory.PlayersState();
 
-            server.Send(json.encode({mario = mario, tiles = tiles, lives = lives,
-                coins = coins}))
+            server.Send(json.encode({mario = mario,
+                                     tiles = tiles,
+                                     lives = lives,
+                                     coins = coins,
+                                     state = state}))
           end
         end
 

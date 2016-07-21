@@ -1,5 +1,5 @@
- --[[
- @file write_joypad.lua
+--[[
+ @file server.lua
  @author Marcus Edel
 
  Definition of server/client routines.
@@ -35,7 +35,7 @@ function Server(host, port, backlog)
   end
 
   res, err = tcp_server:listen(backlog);
-  if res==nil then 
+  if res==nil then
     return nil, err;
   end
 

@@ -31,7 +31,7 @@ local function EnemySprites()
           memory.readbyte(0x87+slot);
 
       local enemyY = memory.readbyte(0xCF + slot) + 24;
-      
+
       sprites[#sprites+1] = {["x"] = enemyX, ["y"] = enemyY};
     end
   end
@@ -62,7 +62,7 @@ local function ReadTiles(marioX, marioY, radius)
   local radius = radius or 6
   local address = 0;
   local tilesRow = 0;
-  local tiles = {}; 
+  local tiles = {};
 
   --Iterate through all tiles and find their types.
   for dy = -radius * 16, radius * 16, 16 do
@@ -93,7 +93,7 @@ local function ReadTiles(marioX, marioY, radius)
           tiles[tilesRow][#tiles[tilesRow]] = 1;
         end
       end
-    end        
+    end
   end
 
   --Check if there's an enemy in the block.
@@ -108,7 +108,7 @@ local function ReadTiles(marioX, marioY, radius)
       if (enemyTileY > 6) then
         enemyTileY = 6 - enemyTileY
       end;
-      
+
       -- Ensure we're drawing in the bounds of our coordinates.
       if -6 < enemyTileY and enemyTileY < 6 and 0 < (enemyTileX + 8) and (enemyTileX + 8) < 14 then
         tiles[enemyTileY][enemyTileX + 8] = 2
@@ -133,10 +133,30 @@ local function MarioCoins()
   return memory.readbyte(0x075E)
 end
 
+-- Get the player's state
+-- 0x00 - Leftmost of screen
+-- 0x01 - Climbing vine
+-- 0x02 - Entering reversed-L pipe
+-- 0x03 - Going down a pipe
+-- 0x04 - Autowalk
+-- 0x05 - Autowalk
+-- 0x06 - Player dies
+-- 0x07 - Entering area
+-- 0x08 - Normal
+-- 0x09 - Cannot move
+-- 0x0B - Dying
+-- 0x0C - Palette cycling
+-- @return The current state
+local function PlayersState()
+  return memory.readbyte(0x000E)
+end
+
+
 S.EnemySprites = EnemySprites;
 S.MarioPostion = MarioPostion;
 S.ReadTiles = ReadTiles;
 S.MarioLives = MarioLives;
 S.MarioCoins = MarioCoins;
+S.PlayersState = PlayersState;
 
 return S
