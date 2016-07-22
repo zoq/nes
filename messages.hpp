@@ -87,6 +87,12 @@ static inline std::string ConfigImage(const int quality)
   return "\"config\":{\"image\": " + std::to_string(quality) + "}";
 }
 
+//! Create message to set the divisor.
+static inline std::string ConfigDivisor(const int divisor)
+{
+  return "\"config\":{\"divisor\": " + std::to_string(divisor) + "}";
+}
+
 //! Function to append a JSON message to JSON another message.
 static inline void Append(std::string& messageA, const std::string& messageB)
 {
@@ -97,7 +103,7 @@ static inline void Append(std::string& messageA, const std::string& messageB)
   else
   {
     messageA += "," + messageB;
-  }  
+  }
 }
 
 //! Function to create the final JSON message.
