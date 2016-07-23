@@ -94,7 +94,7 @@ static inline std::string ConfigDivisor(const int divisor)
 }
 
 //! Create message to set the emulation speed.
-static inline std::string ConfigSpeed(const string& speed)
+static inline std::string ConfigSpeed(const std::string& speed)
 {
   return "\"config\":{\"speed\": " + speed + "}";
 }
