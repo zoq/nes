@@ -130,6 +130,16 @@ class Parser {
   }
 
   /**
+   * Parse the player state.
+   *
+   * @param state The current player state.
+   */
+  void PlayerState(int& state)
+  {
+    state = pt.get<int>("state");
+  }
+
+  /**
    * Parse the current game image.
    *
    * @param image The current game image as string.
