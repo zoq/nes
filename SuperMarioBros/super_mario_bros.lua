@@ -33,6 +33,8 @@ imageQuality = 80
 
 -- Skip the start screen and create a savestate.
 function StartGame()
+  emu.speedmode("maximum")
+
   while(start ~= true) do
     frameCounter = frameCounter + 1;
 
@@ -140,9 +142,30 @@ function FunctionHandler(data)
          -- Check the config values.
         if (values["config"] ~= nil) then
           if (values["config"]["frame"] ~= nil) then
+
+            -- Set frame counter.
             frameCounter = values["config"]["frame"]
           elseif (values["config"]["image"] ~= nil) then
+
+            -- Set image quality.
             imageQuality = values["config"]["image"]
+          elseif (values["config"]["divisor"] ~= nil) then
+
+            -- Set frame divisor.
+            frameDivisor = values["config"]["divisor"]
+          elseif (values["config"]["speed"] ~= nil) then
+
+            -- Set emulation speed (maximum, normal, turbo).
+            local speed = values["config"]["speed"]
+            if (speed == "maximum") then
+              emu.speedmode("maximum")
+            elseif (speed == "normal") then
+              emu.speedmode("normal")
+            elseif (speed == "turbo") then
+              emu.speedmode("turbo")
+            else
+              print("Unknown speed value: " + speed)
+            end
           else
             print("Unknown config value: " + values["config"])
           end
