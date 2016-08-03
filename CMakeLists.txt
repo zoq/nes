@@ -7,7 +7,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 # Set the CFLAGS and CXXFLAGS.
 add_definitions("-Wno-deprecated-declarations")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
-SET(CMAKE_CXX_FLAGS "-std=c++11 -O0 ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "-std=c++11 -O0  -fPIC -Wl -rpath /usr/local/lib/gcc46 ${CMAKE_CXX_FLAGS}")
 
 # If using clang, we have to link against libc++ depending on the
 # OS (at least on some systems). Further, gcc sometimes optimizes calls to
@@ -46,11 +46,28 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${MLPACK_INCLUDE_DIR})
 
 
 # Set source file path.
 set(nes_source
     nes.cpp
+    parser.hpp
+    client.hpp
+    messages.hpp
+)
+
+# Set source file path.
+set(super_mario_bros_source
+    SuperMarioBros/super_mario_bros.cpp
+    parser.hpp
+    client.hpp
+    messages.hpp
+)
+
+# Set source file path.
+set(balancer_source
+    balancer.cpp
     parser.hpp
     client.hpp
     messages.hpp
@@ -64,8 +81,38 @@ target_link_libraries(nes ${Boost_LIBRARIES}
                           ${MLPACK_LIBRARY}
                           ${OpenCV_LIBS})
 
+# Define the executable and link against the libraries we need to build the
+# source.
+add_executable(supermariobros ${super_mario_bros_source})
+target_link_libraries(supermariobros ${Boost_LIBRARIES}
+                          ${ARMADILLO_LIBRARIES}
+                          ${MLPACK_LIBRARY}
+                          ${OpenCV_LIBS})
+
+# Define the executable and link against the libraries we need to build the
+# source.
+add_executable(balancer ${balancer_source})
+target_link_libraries(balancer ${Boost_LIBRARIES}
+                          ${ARMADILLO_LIBRARIES}
+                          ${MLPACK_LIBRARY}
+                          ${OpenCV_LIBS})
+
 # Copy the datasets into the right place.
 add_custom_command(TARGET nes
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/data/
+      ${PROJECT_BINARY_DIR}
+)
+
+# Copy the datasets into the right place.
+add_custom_command(TARGET supermariobros
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/data/
+      ${PROJECT_BINARY_DIR}
+)
+
+# Copy the datasets into the right place.
+add_custom_command(TARGET balancer
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/data/
       ${PROJECT_BINARY_DIR}
