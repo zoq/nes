@@ -105,6 +105,7 @@ class TaskSuperMarioBros
 
       parser.Parse(json);
       parser.Tiles(tiles);
+
       parser.MarioPostion(marioPostionX, marioPostionY);
       parser.MarioLives(marioLives);
       parser.PlayerState(playerState);
@@ -148,8 +149,17 @@ class TaskSuperMarioBros
   {
     try
     {
-      client.Connect(host, port);
+      client::Client clientMaster;
+      clientMaster.Connect(host, port);
 
+      clientMaster.Send(messages::GetEndpoint());
+      std::string json;
+      clientMaster.Receive(json);
+
+      parser.Parse(json);
+      parser.Endpoint(hostEndpoint, portEndpoint);
+
+      client.Connect(hostEndpoint, portEndpoint);
       client.Send(messages::JSONMessage(messages::ConfigSpeed("maximum")));
       client.Send(messages::JSONMessage(messages::ConfigDivisor(2)));
       client.Send(messages::JSONMessage(messages::PressRight()));
@@ -257,6 +267,12 @@ class TaskSuperMarioBros
   //! Locally stored port.
   std::string port;
 
+  //! Locally stored endpoint host name.
+  std::string hostEndpoint;
+
+  //! Locally stored endpoint port.
+  std::string portEndpoint;
+
   //! Locally stored parser instance.
   parser::Parser parser;
 
@@ -288,12 +304,12 @@ int main(int argc, char* argv[])
 
   // Set parameters of NEAT algorithm.
   Parameters params;
-  params.aPopulationSize = 200;
+  params.aPopulationSize = 300;
   params.aMaxGeneration = 5000;
 
   params.aCoeffDisjoint = 2.0;
-  params.aCoeffWeightDiff = 0.4;
-  params.aCompatThreshold = 1.0;
+  params.aCoeffWeightDiff = 0.5;
+  params.aCompatThreshold = 0.35;
 
 
   params.aStaleAgeThreshold = 15;
