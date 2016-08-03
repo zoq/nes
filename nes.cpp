@@ -1,5 +1,5 @@
 /**
- * @file nes.hpp
+ * @file nes.cpp
  * @author Marcus Edel
  *
  * Simple test programm to communicate with the host, that runs nes game.
