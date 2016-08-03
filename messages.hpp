@@ -99,6 +99,21 @@ static inline std::string ConfigSpeed(const std::string& speed)
   return "\"config\":{\"speed\": " + speed + "}";
 }
 
+//! Create message to send the endpoint.
+static inline std::string SendEndpoint(const std::string& host,
+                                       const std::string port)
+{
+  return "\"endpoint\":{\"host\": \"" + host + "\" ," + " \"port\": \"" + port + "\"}";
+}
+
+//! Create message to send the endpoint.
+static inline std::string GetEndpoint()
+{
+  return "get";
+}
+
+
+
 //! Function to append a JSON message to JSON another message.
 static inline void Append(std::string& messageA, const std::string& messageB)
 {

@@ -59,6 +59,18 @@ class Parser {
   }
 
   /**
+   * Parse the endpoint data.
+   *
+   * @param host The endpoint hostname.
+   * @param port The endpoint port.
+   */
+  void Endpoint(std::string& host, std::string& port)
+  {
+    host = pt.get_child("endpoint").get<std::string>("host");
+    port = pt.get_child("endpoint").get<std::string>("port");
+  }
+
+  /**
    * Parse the tiles data and return in matrix form.
    *
    * @param tiles The tiles as matrix.
