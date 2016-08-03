@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
     std::string port(argv[2]);
 
     // Connect to the specified host using the given port.
-    client::Client client(host, port);
+    client::Client client;
+    client.Connect(host, port);
 
     parser::Parser parser;
     std::string command;
