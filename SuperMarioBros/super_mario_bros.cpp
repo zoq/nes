@@ -179,6 +179,12 @@ class TaskSuperMarioBros
     return true;
   }
 
+  // Whether task success or not.
+  bool Success()
+  {
+    return false;
+  }
+
   /*
    * Check if mario dies.
    */
@@ -249,7 +255,7 @@ class TaskSuperMarioBros
       }
 
       // Abort if the marios x postion does not change in 80 steps.
-      if (stepCounter >= 80) break;
+      if (stepCounter >= 70) break;
     }
 
     if (maxMarioPositionX > 0)
@@ -305,26 +311,24 @@ int main(int argc, char* argv[])
   // Set parameters of NEAT algorithm.
   Parameters params;
   params.aPopulationSize = 300;
-  params.aMaxGeneration = 5000;
-
+  params.aMaxGeneration = 50000;
   params.aCoeffDisjoint = 2.0;
   params.aCoeffWeightDiff = 0.5;
   params.aCompatThreshold = 0.35;
-
-
   params.aStaleAgeThreshold = 15;
   params.aCrossoverRate = 0.75;
-  params.aCullSpeciesPercentage = 0.5;
-  params.aMutateWeightProb = 0.5;
+  params.aCullSpeciesPercentage = 0.8;
+  params.aMutateWeightProb = 0.2;
   params.aPerturbWeightProb = 0.9;
   params.aMutateWeightSize = 0.1;
-  params.aMutateAddLinkProb = 0.9;
+  params.aMutateAddForwardLinkProb = 2.0;
+  params.aMutateAddBackwardLinkProb = 0;
   params.aMutateAddRecurrentLinkProb = 0;
-  params.aMutateAddLoopLinkProb = 0;
-  params.aMutateAddNeuronProb = 0.9;
-  params.aMutateEnabledProb = 0.2;
-  params.aMutateDisabledProb = 0.4;
-  // params.aNumSpeciesThreshold = 10;
+  params.aMutateAddBiasLinkProb = 0.3;
+  params.aMutateAddNeuronProb = 0.5;
+  params.aMutateEnabledProb = 0.3;
+  params.aMutateDisabledProb = 0.2;
+  params.aNumSpeciesThreshold = 10;
 
   // Set seed genome for the Super Mario Bros. task.
   ssize_t numInput = 170;
