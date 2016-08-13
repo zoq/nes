@@ -40,7 +40,8 @@ class TaskSuperMarioBros
   TaskSuperMarioBros(const std::string& host,
                      const std::string& port) :
       host(host),
-      port(port)
+      port(port),
+      success(false)
   {
      /* Nothing to do here */
   }
@@ -159,6 +160,9 @@ class TaskSuperMarioBros
       parser.Parse(json);
       parser.Endpoint(hostEndpoint, portEndpoint);
 
+      // Check if local balancer.
+      if (hostEndpoint == "*") hostEndpoint = host;
+
       client.Connect(hostEndpoint, portEndpoint);
       client.Send(messages::JSONMessage(messages::ConfigSpeed("maximum")));
       client.Send(messages::JSONMessage(messages::ConfigDivisor(2)));
@@ -182,7 +186,7 @@ class TaskSuperMarioBros
   // Whether task success or not.
   bool Success()
   {
-    return false;
+    return success;
   }
 
   /*
@@ -258,6 +262,12 @@ class TaskSuperMarioBros
       if (stepCounter >= 70) break;
     }
 
+    // First level.
+    if (maxMarioPositionX >= 3266)
+    {
+        success = true;
+    }
+
     if (maxMarioPositionX > 0)
     {
       return 1 / double(maxMarioPositionX);
@@ -296,6 +306,9 @@ class TaskSuperMarioBros
 
   //! Locally stored player state.
   int playerState;
+
+  //! Locally stored success indicator; set to true if task solved.
+  bool success;
 };
 
 
