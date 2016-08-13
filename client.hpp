@@ -119,7 +119,7 @@ class Client {
   void Send(const std::string& data)
   {
     // Set a deadline for the asynchronous operation.
-    deadline.expires_from_now(boost::posix_time::seconds(10));
+    deadline.expires_from_now(boost::posix_time::seconds(1000));
 
     // Set up the variable that receives the result of the asynchronous
     // operation.
