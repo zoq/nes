@@ -10,7 +10,7 @@ The communication module has the following dependencies:
 
 ```
 mlpack
-OpenCV
+OpenCV (optional)
 Boost (asio, property_tree) - libboost-all-dev contains all necessary packages
 CMake         >= 2.8.5
 ```
@@ -19,9 +19,9 @@ The emulator module has the following dependencies:
 
 ```
 fceux
-lua-cjson
-luasocket
-lua-gd
+lua-cjson (luarocks install lua-cjson)
+luasocket (luarocks install luasocket)
+lua-gd (optional)
 Super Mario Bros. (Japan, USA).nes
 ```
 
@@ -43,9 +43,16 @@ $ cmake ../
 $ make
 ```
 
+You can specify options to compile with the -D flag. A list of options allowed:
+
+```
+MLPACK_INCLUDE_DIR=(/path/to/mlpack/include/): path to mlpack headers
+MLPACK_LIBRARY=(/path/to/mlpack/mlpack.so): mlpack library
+```
+
 ## Running the communication module.
 
-After building the communication module, the executable (´´´nes´´´) will reside in build/. You can call them from there, or you can install the executable and (depending on system settings) it should be added to your PATH and you can call them directly. The communication module requires two parameters the IP address or a host name and the port of the machine that runs the emulator module.
+After building the communication module, the executable (´´nes´´) will reside in build/. You can call them from there, or you can install the executable and (depending on system settings) it should be added to your PATH and you can call them directly. The communication module requires two parameters the IP address or a host name and the port of the machine that runs the emulator module.
 
 We have a running emulator module you can use. Note that the emulation module allows only one connection at a time. Maybe you have to wait, to use the remote emulator module.
 
@@ -146,6 +153,15 @@ The following contains some example outputs of the game state and the correspond
                            0   0   0   0   0   0   0   0   0   0   0   0   0
 ```
 
+## Running the mlpack task
+
+After building the communication module, the executable (´´supermariobros´´) will reside in build/. You can call them from there, or you can install the executable and (depending on system settings) it should be added to your PATH and you can call them directly. The supermario task module requires two parameters the IP address or a host name and the port of the machine that runs the emulator module.
+
+```
+./supermariobros 127.0.0.1 4561
+```
+
+
 ## Running the emulator module.
 
 After the dependencies for the emulator module are installed you can run the module.
@@ -154,3 +170,11 @@ After the dependencies for the emulator module are installed you can run the mod
 2. Click File -> Load Lua Script -> super_mario_bros.lua
 3. Click File -> Open ROM -> Super Mario Bros. (Japan, USA).nes (wait a couple of seconds for mario to be standing on the ground)
 4. You should now be able to connect to the emulator module using the communication module using the host and port (defautlt 4561) used to start the emulation module.
+
+If running the programs gives an error of the form:
+
+```
+module 'read_memory' not found:
+```
+
+Please update your lua package path or set ``package.path`` line 9 in ``super_mario_bros.lua`` accordingly.
