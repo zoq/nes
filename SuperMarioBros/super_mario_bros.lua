@@ -5,6 +5,9 @@
  Definition of game state.
  --]]
 
+-- Manually set the package path
+-- package.path = package.path .. ';/path/to/nes/SuperMarioBros/?.lua'
+
 local readMemory = require("read_memory");
 local writeJoypad = require("write_joypad");
 local server = require("server");
@@ -30,6 +33,10 @@ frameDivisor = 30
 
 -- Locally stored image quality parameter.
 imageQuality = 80
+
+-- Locally stored port.
+port = 4571
+
 
 -- Skip the start screen and create a savestate.
 function StartGame()
@@ -67,6 +74,13 @@ end
 -- Set the frame divisor -> "config" : frameDivisor
 function FunctionHandler(data)
   if data ~= nil and string.len(data) > 2 then
+
+    -- Act as balancer in case the client sends a get enpoint message.
+    if string.match(data, "get") then
+      endpoint = {host = "*", port = port}
+      server.Send(json.encode({endpoint = endpoint}))
+      return
+    end
 
     local success, values = pcall(json.decode, data);
     if (success) then
@@ -177,7 +191,7 @@ end
 
 -- Start the game and wait for connections.
 StartGame()
-server.Server("*", 4561, 1)
+server.Server("*", port, 1)
 server.Accept()
 savestate.load(saveState)
 
