@@ -35,7 +35,7 @@ frameDivisor = 30
 imageQuality = 80
 
 -- Locally stored port.
-port = 4571
+port = 4561
 
 
 -- Skip the start screen and create a savestate.
