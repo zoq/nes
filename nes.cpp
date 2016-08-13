@@ -7,8 +7,10 @@
 
 #include <mlpack/core.hpp>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#ifdef HAS_OPENCV
+  #include <opencv2/core/core.hpp>
+  #include <opencv2/highgui/highgui.hpp>
+#endif
 
 #include <iostream>
 #include <string>
@@ -88,11 +90,13 @@ int main(int argc, char* argv[])
         parser.GameImage(imageStr, imageStr);
         std::vector<char> vectordata(imageStr.begin(), imageStr.end());
 
-        cv::Mat data_mat(vectordata, true);
-        cv::Mat image(cv::imdecode(data_mat, 1));
+        #ifdef HAS_OPENCV
+          cv::Mat data_mat(vectordata, true);
+          cv::Mat image(cv::imdecode(data_mat, 1));
 
-        imshow("image", image);
-        if(cv::waitKey(1) >= 0) break;
+          imshow("image", image);
+          if(cv::waitKey(1) >= 0) break;
+        #endif
 
         continue;
       }
