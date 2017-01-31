@@ -4,6 +4,8 @@ This repository contains a collection of scripts for running and communicating w
 
 The repository contains basicaly two modules. The communication module used to communicate with the emulator over a C++ interface and the emulator module, that runs the NES game and provides an interface to get various information about the game state.
 
+**Note:** I am not actively maintaining NES Scripts anymore please use https://github.com/zoq/gym_tcp_api
+
 ## Requirements
 
 The communication module has the following dependencies:
